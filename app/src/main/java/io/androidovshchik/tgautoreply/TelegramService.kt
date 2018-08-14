@@ -61,11 +61,13 @@ class TelegramService : BaseService() {
                         Timber.d(update.toString())
                         val message = (update as TdApi.UpdateNewMessage).message
                         if (message.isOutgoing) {
+                            // myself message
                             return@create
                         }
                         client!!.send(TdApi.GetUser(message.senderUserId)) { user ->
                             Timber.d(user.toString())
                             if ((user as TdApi.User).type.constructor != TdApi.UserTypeRegular.CONSTRUCTOR) {
+                                // otherwise it may be a bot and etc
                                 return@send
                             }
                             val text = "It really works!!!"
@@ -115,6 +117,7 @@ class TelegramService : BaseService() {
 
     private fun onAuthPassed() {
         Timber.d("onAuthPassed")
+        // todo custom logic on authorized user
     }
 
     private fun getNotification(): Notification {
