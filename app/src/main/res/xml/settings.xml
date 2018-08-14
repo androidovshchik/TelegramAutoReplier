@@ -1,0 +1,19 @@
+<?xml version="1.0" encoding="utf-8"?>
+<PreferenceScreen xmlns:android="http://schemas.android.com/apk/res/android">
+
+    <SwitchPreference
+        android:defaultValue="false"
+        android:key="enableBot"
+        android:title="Включить бота" />
+
+    <EditTextPreference
+        android:defaultValue="1"
+        android:key="vkId"
+        android:title="Id личной страницы"/>
+
+    <EditTextPreference
+        android:defaultValue="YOUR_TOKEN"
+        android:key="vkToken"
+        android:title="VK токен"/>
+
+</PreferenceScreen>
