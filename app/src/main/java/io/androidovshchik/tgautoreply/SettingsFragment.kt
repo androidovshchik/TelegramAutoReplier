@@ -19,23 +19,26 @@ class SettingsFragment : PreferenceFragment() {
         addPreferencesFromResource(R.xml.settings)
         val context = activity.appContext
         if (context.preferences.getBoolean(PREFERENCE_ENABLE_BOT) &&
-            !context.isServiceRunning(VKService::class.java)) {
-            context.forceRestartForegroundService(VKService::class.java)
+            !context.isServiceRunning(TelegramService::class.java)) {
+            context.forceRestartForegroundService(TelegramService::class.java)
         }
         findPreference(PREFERENCE_ENABLE_BOT)
             .setOnPreferenceChangeListener { preference: Preference, newValue: Any ->
                 Timber.d(preference.key + ": " + newValue)
                 if (newValue as Boolean) {
-                    context.forceRestartForegroundService(VKService::class.java)
+                    context.forceRestartForegroundService(TelegramService::class.java)
                 } else {
-                    context.stopService(VKService::class.java)
+                    context.stopService(TelegramService::class.java)
                 }
                 true
             }
-        findPreference(PREFERENCE_VK_ID).onPreferenceChangeListener = Preference.OnPreferenceChangeListener {
+        findPreference(PREFERENCE_TELEGRAM_API_ID).onPreferenceChangeListener = Preference.OnPreferenceChangeListener {
             preference, newValue -> onPreferenceChange(preference, newValue)
         }
-        findPreference(PREFERENCE_VK_TOKEN).onPreferenceChangeListener = Preference.OnPreferenceChangeListener {
+        findPreference(PREFERENCE_TELEGRAM_API_HASH).onPreferenceChangeListener = Preference.OnPreferenceChangeListener {
+            preference, newValue -> onPreferenceChange(preference, newValue)
+        }
+        findPreference(PREFERENCE_TELEGRAM_PHONE).onPreferenceChangeListener = Preference.OnPreferenceChangeListener {
             preference, newValue -> onPreferenceChange(preference, newValue)
         }
     }
@@ -44,7 +47,7 @@ class SettingsFragment : PreferenceFragment() {
     private fun onPreferenceChange(preference: Preference, newValue: Any): Boolean {
         Timber.d(preference.key + ": " + newValue)
         if (context.preferences.getBoolean(PREFERENCE_ENABLE_BOT)) {
-            context.forceRestartForegroundService(VKService::class.java)
+            context.forceRestartForegroundService(TelegramService::class.java)
         }
         return true
     }

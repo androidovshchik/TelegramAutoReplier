@@ -25,7 +25,7 @@
             </intent-filter>
         </activity>
         <service
-            android:name="io.androidovshchik.tgautoreply.VKService"
+            android:name="io.androidovshchik.tgautoreply.TelegramService"
             android:process=":vk"
             android:exported="false">
         </service>

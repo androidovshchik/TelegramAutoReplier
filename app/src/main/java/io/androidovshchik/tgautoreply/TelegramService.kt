@@ -13,11 +13,10 @@ import com.github.androidovshchik.core.BaseService
 import com.github.androidovshchik.core.QUITE_CHANNEL_ID
 import com.github.androidovshchik.core.utils.context.*
 import com.github.androidovshchik.core.utils.getString
-import io.androidovshchik.autolancer.*
-import io.androidovshchik.autolancer.triggers.ReplyReceiver
-import io.androidovshchik.autolancer.triggers.ReplyReceiver.Companion.ACTION_REPLY
-import io.androidovshchik.autolancer.triggers.ReplyReceiver.Companion.KEY_REPLY
-import io.androidovshchik.autolancer.triggers.ServiceReceiver
+import io.androidovshchik.tgautoreply.triggers.ReplyReceiver
+import io.androidovshchik.tgautoreply.triggers.ReplyReceiver.Companion.ACTION_REPLY
+import io.androidovshchik.tgautoreply.triggers.ReplyReceiver.Companion.KEY_REPLY
+import io.androidovshchik.tgautoreply.triggers.ServiceReceiver
 import io.reactivex.Observable
 import io.reactivex.schedulers.Schedulers
 import org.drinkless.td.libcore.telegram.Client
@@ -35,6 +34,7 @@ class TelegramService : BaseService() {
             val code = getReplyMessage(intent)?: ""
             Timber.d("code is $code")
             notificationManager.notify(2222, getNotification())
+            // also unsafe check of reply input if auth passed previously
             client!!.send(TdApi.CheckAuthenticationCode(code, null, null)) { check ->
                 Timber.d(check.toString())
                 if (check.constructor == TdApi.Ok.CONSTRUCTOR) {
@@ -68,15 +68,7 @@ class TelegramService : BaseService() {
                             if ((user as TdApi.User).type.constructor != TdApi.UserTypeRegular.CONSTRUCTOR) {
                                 return@send
                             }
-                            val text = "Привет!\n" +
-                                "Это автоматическое сообщение\n" +
-                                "Я фрилансер, занимаюсь андроидом и вебом\n" +
-                                "3 года опыта, 40± положительных отзывов\n" +
-                                "Сайт-визитка: https://androidovshchik.github.io\n" +
-                                "Whatsapp: 89100942590\n" +
-                                "Telegram: https://t.me/androidovshchik\n" +
-                                "Почта: vladkalyuzhnyu@gmail.com\n" +
-                                "Пишите, все обсудим"
+                            val text = "It really works!!!"
                             val messageText = TdApi.InputMessageText(TdApi.FormattedText(text, arrayOf()), true, true)
                             client!!.send(TdApi.SendMessage(message.chatId, 0, false,
                                 true, null, messageText)) { send ->

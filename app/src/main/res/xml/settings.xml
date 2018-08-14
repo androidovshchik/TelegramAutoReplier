@@ -7,13 +7,18 @@
         android:title="Включить бота" />
 
     <EditTextPreference
-        android:defaultValue="1"
-        android:key="vkId"
-        android:title="Id личной страницы"/>
+        android:defaultValue="0"
+        android:key="telegramApiId"
+        android:title="Telegram api id"/>
 
     <EditTextPreference
-        android:defaultValue="YOUR_TOKEN"
-        android:key="vkToken"
-        android:title="VK токен"/>
+        android:defaultValue="abcdefg"
+        android:key="telegramApiHash"
+        android:title="Telegram api hash"/>
+
+    <EditTextPreference
+        android:defaultValue="9999999"
+        android:key="telegramPhone"
+        android:title="Telegram телефон"/>
 
 </PreferenceScreen>
