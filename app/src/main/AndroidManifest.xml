@@ -26,7 +26,7 @@
         </activity>
         <service
             android:name="io.androidovshchik.tgautoreply.TelegramService"
-            android:process=":vk"
+            android:process=":telegram"
             android:exported="false">
         </service>
         <receiver
